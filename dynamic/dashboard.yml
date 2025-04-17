@@ -1,0 +1,26 @@
+
+http:
+  routers:
+    traefik-dashboard:
+      rule: Path(`/traefik/dashboard`)
+      entryPoints:
+        - web
+      service: api@internal
+      middlewares:
+        - traefik-strip
+
+    traefik-api:
+      rule: Path(`/traefik/api`)
+      entryPoints:
+        - web
+      service: api@internal
+      middlewares:
+        - traefik-strip
+
+  middlewares:
+    traefik-strip:
+      stripPrefix:
+        prefixes:
+          - "/traefik/dashboard"
+          - "/traefik/api"
+        forceSlash: false

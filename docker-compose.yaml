@@ -1,18 +1,21 @@
 services:
   reverse-proxy:
-    image: traefik:v3.3
+    image: traefik:latest
     command:
       - --accesslog
       - --api.insecure=true
+      - --api.dashboard=true
+      - --entrypoints.web.address=:80
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
-      - --entrypoints.web.address=:80
-      - --api.dashboard=true
+      # - --providers.file.directory=/etc/traefik/dynamic
+      # - --providers.file.watch=true
     ports:
       - "80:80"
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      # - ./dynamic:/etc/traefik/dynamic         # 讀取中介層設定檔
     networks:
       - proxy_router
 
