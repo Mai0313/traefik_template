@@ -4,10 +4,10 @@ services:
     command:
       - --accesslog
       - --api.insecure=true
+      - --api.dashboard=true
+      - --entrypoints.web.address=:80
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
-      - --entrypoints.web.address=:80
-      - --api.dashboard=true
       # === SSL + Let's Encrypt 自動簽憑證設定 ===
       - --entrypoints.websecure.address=:443                                    # [SSL] 啟用 HTTPS (解註即可開啟)
       - --certificatesresolvers.letsencrypt.acme.httpchallenge=true             # [SSL] 啟用 HTTP Challenge 驗證方式
