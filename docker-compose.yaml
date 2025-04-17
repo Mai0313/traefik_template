@@ -1,0 +1,21 @@
+services:
+  reverse-proxy:
+    image: traefik:v3.3
+    command:
+      - --accesslog
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --api.dashboard=true
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy_router
+
+networks:
+  proxy_router:
+    external: true
